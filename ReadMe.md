@@ -1,7 +1,2 @@
-echo "# PowerShell" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/AleksandrMikoshi/PowerShell.git
-git push -u origin main
+****Приветствую.**
+Это любительское изучение возможностей PowerShell и написание собственных функций и модулей для автоматизации рабочих процессов.**
