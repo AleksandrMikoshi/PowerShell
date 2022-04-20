@@ -1,3 +1,3 @@
-**Приветствую.**
+**Hello everyware.**
 
-**Это любительское изучение возможностей PowerShell и написание собственных функций и модулей для автоматизации рабочих процессов.**
+**This is an amateur study of the possibilities of PowerShell and writing your own functions and modules to automate workflows.**
