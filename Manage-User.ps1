@@ -9,7 +9,7 @@ function Manage-user{
     $global:UserName = "login for connect to JIRA"
     $global:SecurePasswd = "Password for connect to JIRA" | ConvertTo-SecureString -AsPlainText -Force
     $global:cred = New-Object System.Management.Automation.PSCredential -ArgumentList $UserName, $SecurePasswd
-    Set-JiraConfigServer -Server "$Jira"
+#    Set-JiraConfigServer -Server "$Jira"
 
     
     function Start_menu{
@@ -499,5 +499,6 @@ Select menu item or press Q to exit
             Write-Host "Permission 'Full Acces' granted" -ForegroundColor Green
             return
         }
-    } 
+    }
+Start_menu
 }
