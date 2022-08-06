@@ -1,36 +1,40 @@
-<#Установка сертификатов пока происходит посредством программы certmgr.exe которая поставляется совместно с КриптоПРО.#>
+<#Certificates are currently installed using the certmgr.exe program, which comes with CryptoPRO.#>
 function Import-CSPCertificate {
     param(
         [Parameter (Mandatory=$true)]
         [ValidateNotNullOrEmpty()]
-        [string]$Path,   # Путь до расположения сертификата
+        [string]$Path,   # Path to the location of the certificate
         [Parameter (Mandatory=$false)]
         [ValidateNotNullOrEmpty()]
-        [string]$UserLogin     # Логин пользователя
+        [string]$UserLogin     # User login
     )
     $ErrorActionPreference = "Continue"
-    [string]$certmgr = 'C:\Program Files\Crypto Pro\CSP\certmgr.exe'    # Запуск certmgr.exe
+    # Run certmgr.exe
+    [string]$certmgr = 'C:\Program Files\Crypto Pro\CSP\certmgr.exe'    
     try{
-        [string]$searchArray = .$certmgr -list -file "$Path\$UserLogin.cer" -verbose | Select-String -Pattern SubjKeyID    # Поиск файла сертификата. Берём из него SubjKeyID
+        # Search for a certificate file. We take SubjKeyID from it
+        [string]$searchArray = .$certmgr -list -file "$Path\$UserLogin.cer" -verbose | Select-String -Pattern SubjKeyID
         }
     catch{
-        throw "Путь $Path\$UserLogin.cer не доступен"
+        throw "Path $Path\$UserLogin.cer is not available"
         }
-    [string]$searchArray = .$certmgr -list -file "$Path\$UserLogin.cer" -verbose | Select-String -Pattern SubjKeyID    # Поиск файла сертификата. Берём из него SubjKeyID
-    Write-Verbose -Message $searchArray
-    [string]$search = ($searchArray -split "SubjKeyID           : ",2)[1]    # Удаляем из строки SubjKeyID все строки до самого ключа
-    Write-Verbose -Message $search
-    [string]$Install_cert = .$certmgr -list -verbose -keyid $search | Select-String -Pattern "Serial", "Not valid before", "Not valid after"    #Поиск среди установленных сертификатов по SubjKeyID. Берём данные подписанта и срок действия(если сертификата нет, то NULL).
-    #Write-Verbose -Message $Install_cert
-    [string]$File_cert = .$certmgr -list -file "$Path\$UserLogin.cer" | Select-String -Pattern "Serial", "Not valid before", "Not valid after"    #Данные подписанта и срок действия в файле сертификата. 
-    #Write-Verbose -Message $File_cert
-    if ("$Install_cert" -notlike "$File_cert"){# Сравнение полученных данных в $Install_cert и $File_cert
-        #Write-Verbose -Message "Variant INSTALL"
-        $Output = .$certmgr -inst -pfx -file "$Path\$UserLogin.pfx" -pin 1234567890 -store uMy -silent    #Устанавливаем контейнер закрытого ключа
-        # Write-Verbose -Message $Output
-        $ContainerArray = ($Output | Select-String -Pattern "Container" | Select-Object -First 1)    #Сохраняем имя контейнера 
-        #Write-Verbose -Message $ContainerArray
-        [string]$Container = ($ContainerArray -split "Container           : ",2)[1]    # Удаляем из строки контейнера все строки до самого контейнера
-        #Write-Verbose -Message $Container 
-        .$certmgr -install -store uMy -file "$Path\$UserLogin.cer" -certificate -container "$Container" -silent -inst_to_cont}    # Установка открытой части сертификата и ссылка на закрытую часть
+    # Search for a certificate file. We take SubjKeyID from it
+    [string]$searchArray = .$certmgr -list -file "$Path\$UserLogin.cer" -verbose | Select-String -Pattern SubjKeyID   
+    # Remove all lines from the SubjKeyID line up to the key itself
+    [string]$search = ($searchArray -split "SubjKeyID           : ",2)[1]
+    # Search among installed certificates by SubjKeyID. We take the data of the signer and the validity period (if there is no certificate, then NULL)
+    [string]$Install_cert = .$certmgr -list -verbose -keyid $search | Select-String -Pattern "Serial", "Not valid before", "Not valid after"    
+    # Signer data and validity period in the certificate file
+    [string]$File_cert = .$certmgr -list -file "$Path\$UserLogin.cer" | Select-String -Pattern "Serial", "Not valid before", "Not valid after"     
+    
+    # Compare the received data in $Install_cert and $File_cert
+    if ("$Install_cert" -notlike "$File_cert"){
+        # Set up the private key container
+        $Output = .$certmgr -inst -pfx -file "$Path\$UserLogin.pfx" -pin 1234567890 -store uMy -silent    
+        # Save container name
+        $ContainerArray = ($Output | Select-String -Pattern "Container" | Select-Object -First 1)
+        # Remove all lines from the container line up to the container itself
+        [string]$Container = ($ContainerArray -split "Container           : ",2)[1]
+        # Install the public part of the certificate and link to the private part
+        .$certmgr -install -store uMy -file "$Path\$UserLogin.cer" -certificate -container "$Container" -silent -inst_to_cont}    
 }
