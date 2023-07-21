@@ -1648,6 +1648,82 @@ function Manage-user{
     <# Help Menu
     Меню справочной информации #>
     $InfoMenu = {
+
+        $Info_Pass = {
+            $Label = New-Object System.Windows.Forms.Label
+            $Label.Text = $Label_Text
+            $Label.Location  = New-Object System.Drawing.Point(110,450)
+            $Label.AutoSize = $true
+    
+            $Text_Info_Pass = New-Object System.Windows.Forms.Label
+            $Text_Info_Pass.Text = "Select user"
+            $Text_Info_Pass.Location = New-Object System.Drawing.Point(10,20)
+            $Text_Info_Pass.AutoSize = $true
+            $Info_Pass.Controls.Add($Text_Info_Pass)
+    
+            $ComboBox_Info_Pass = New-Object System.Windows.Forms.ComboBox
+            $ComboBox_Info_Pass.Width = 250
+            $Users = get-aduser -filter * -Properties cn -SearchBase $Path_OU | sort cn
+            Foreach ($User in $Users)
+            {
+            $ComboBox_Info_Pass.Items.Add($User.cn);
+            }
+            $ComboBox_Info_Pass.Location = New-Object System.Drawing.Point(10,50)
+            $Info_Pass.Controls.Add($ComboBox_Info_Pass)
+    
+            $Text_Info_Pass_2 = New-Object System.Windows.Forms.Label
+            $Text_Info_Pass_2.Text = "Last password change:"
+            $Text_Info_Pass_2.Location = New-Object System.Drawing.Point(10,80)
+            $Text_Info_Pass_2.AutoSize = $true
+            $Info_Pass.Controls.Add($Text_Info_Pass_2)
+    
+            $Text_Info_Pass_3 = New-Object System.Windows.Forms.Label
+            $Text_Info_Pass_3.Text = ""
+            $Text_Info_Pass_3.Location = New-Object System.Drawing.Point(10,110)
+            $Text_Info_Pass_3.AutoSize = $true
+            $Info_Pass.Controls.Add($Text_Info_Pass_3)
+    
+            $Button_Check_Pass = New-Object System.Windows.Forms.Button
+            $Button_Check_Pass.Location = New-Object System.Drawing.Size(400,20)
+            $Button_Check_Pass.AutoSize = $true
+            $Button_Check_Pass.Text = "Check"
+            $Info_Pass.Controls.Add($Button_Check_Pass)
+            $Button_Check_Pass.Add_Click(
+                {
+                [string]$Name = $ComboBox_Info_Pass.selectedItem
+                $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter 'cn -eq $Name' -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
+                }
+            )
+    
+            <# Button to return to the main menu
+            Кнопка для возврата в главное меню #>
+            $Button_Main_Menu = New-Object System.Windows.Forms.Button
+            $Button_Main_Menu.Text = 'Main menu'
+            $Button_Main_Menu.Location = New-Object System.Drawing.Point(10,400)
+            $Button_Main_Menu.Add_click({$Info_Pass.Dispose(),$main_form.Show()})
+            $Info_Pass.Controls.Add($Button_Main_Menu)
+            $Button_Main_Menu.AutoSize = $true
+    
+            <# Button to close the form
+            Кнопка для закрытия формы #>
+            $Button_Exit = New-Object System.Windows.Forms.Button
+            $Button_Exit.Text = 'Exit'
+            $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
+            $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
+            $Info_Pass.Controls.Add($Button_Exit)
+            $Button_Exit.AutoSize = $true
+    
+            $Info_Pass = New-Object System.Windows.Forms.Form
+            $Info_Pass.Text ='Reference Information'
+            $Info_Pass.Width = 500
+            $Info_Pass.Height = 500
+            $Info_Pass.AutoSize = $true
+            $Info_Pass.Controls.Add($Label)
+    
+            $InfoMenu.Dispose()
+            $Info_Pass.ShowDialog()
+        }
+    
         <# Button to view when the password was last changed
         Кнопка для просмотра когда последний раз меняли пароль #>
         $Button_Info_Pass = New-Object System.Windows.Forms.Button
@@ -1708,81 +1784,6 @@ function Manage-user{
         $main_form.Hide()
         $InfoMenu.ShowDialog()
         }
-
-    $Info_Pass = {
-        $Label = New-Object System.Windows.Forms.Label
-        $Label.Text = $Label_Text
-        $Label.Location  = New-Object System.Drawing.Point(110,450)
-        $Label.AutoSize = $true
-
-        $Text_Info_Pass = New-Object System.Windows.Forms.Label
-        $Text_Info_Pass.Text = "Select user"
-        $Text_Info_Pass.Location = New-Object System.Drawing.Point(10,20)
-        $Text_Info_Pass.AutoSize = $true
-        $Info_Pass.Controls.Add($Text_Info_Pass)
-
-        $ComboBox_Info_Pass = New-Object System.Windows.Forms.ComboBox
-        $ComboBox_Info_Pass.Width = 250
-        $Users = get-aduser -filter * -Properties cn -SearchBase $Path_OU | sort cn
-        Foreach ($User in $Users)
-        {
-        $ComboBox_Info_Pass.Items.Add($User.cn);
-        }
-        $ComboBox_Info_Pass.Location = New-Object System.Drawing.Point(10,50)
-        $Info_Pass.Controls.Add($ComboBox_Info_Pass)
-
-        $Text_Info_Pass_2 = New-Object System.Windows.Forms.Label
-        $Text_Info_Pass_2.Text = "Last password change:"
-        $Text_Info_Pass_2.Location = New-Object System.Drawing.Point(10,80)
-        $Text_Info_Pass_2.AutoSize = $true
-        $Info_Pass.Controls.Add($Text_Info_Pass_2)
-
-        $Text_Info_Pass_3 = New-Object System.Windows.Forms.Label
-        $Text_Info_Pass_3.Text = ""
-        $Text_Info_Pass_3.Location = New-Object System.Drawing.Point(10,110)
-        $Text_Info_Pass_3.AutoSize = $true
-        $Info_Pass.Controls.Add($Text_Info_Pass_3)
-
-        $Button_Check_Pass = New-Object System.Windows.Forms.Button
-        $Button_Check_Pass.Location = New-Object System.Drawing.Size(400,20)
-        $Button_Check_Pass.AutoSize = $true
-        $Button_Check_Pass.Text = "Check"
-        $Info_Pass.Controls.Add($Button_Check_Pass)
-        $Button_Check_Pass.Add_Click(
-            {
-            [string]$Name = $ComboBox_Info_Pass.selectedItem
-            $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter 'cn -eq $Name' -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
-            }
-        )
-
-        <# Button to return to the main menu
-        Кнопка для возврата в главное меню #>
-        $Button_Main_Menu = New-Object System.Windows.Forms.Button
-        $Button_Main_Menu.Text = 'Main menu'
-        $Button_Main_Menu.Location = New-Object System.Drawing.Point(10,400)
-        $Button_Main_Menu.Add_click({$Info_Pass.Dispose(),$main_form.Show()})
-        $Info_Pass.Controls.Add($Button_Main_Menu)
-        $Button_Main_Menu.AutoSize = $true
-
-        <# Button to close the form
-        Кнопка для закрытия формы #>
-        $Button_Exit = New-Object System.Windows.Forms.Button
-        $Button_Exit.Text = 'Exit'
-        $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-        $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-        $Info_Pass.Controls.Add($Button_Exit)
-        $Button_Exit.AutoSize = $true
-
-        $Info_Pass = New-Object System.Windows.Forms.Form
-        $Info_Pass.Text ='Reference Information'
-        $Info_Pass.Width = 500
-        $Info_Pass.Height = 500
-        $Info_Pass.AutoSize = $true
-        $Info_Pass.Controls.Add($Label)
-
-        $InfoMenu.Dispose()
-        $Info_Pass.ShowDialog()
-    }
 
     <# Button to go to the Active Directory menu
     Кнопка перехода в меню Active Directory #>
