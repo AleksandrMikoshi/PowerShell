@@ -98,11 +98,8 @@ function Manage-user{
             [string]$Global:Office           =   $Array_City.Value
             [string]$Global:JobTitle         =   $Full_Data.customfield_10410
             [string]$Global:Department       =   $Full_Data.customfield_10502
-            [string]$Global:Management       =   $Full_Data.customfield_10700
             [string]$Global:Phone            =   $Full_Data.customfield_10503
             [string]$Global:Birth            =   Get-Date $Data -format "dd.MM.yyyy"
-            [string]$Global:Task             =   $Full_Data.Key
-            [string]$Global:Division         =   $Full_Data.customfield_10409
 
             $Label_Info_User = New-Object System.Windows.Forms.Label
             $Label_Info_User.Text = "Check the data"
@@ -110,129 +107,99 @@ function Manage-user{
             $Label_Info_User.AutoSize = $true
 
             $Label_ticket_1 = New-Object System.Windows.Forms.Label
-            $Label_ticket_1.Text = "Application number"
-            $Label_ticket_1.Location = New-Object System.Drawing.Point(10,50)
+            $Label_ticket_1.Text = "Last name"
+            $Label_ticket_1.Location = New-Object System.Drawing.Point(10,75)
             $Label_ticket_1.AutoSize = $true
-
-            $TextBox_Task = New-Object System.Windows.Forms.TextBox
-            $TextBox_Task.Location  = New-Object System.Drawing.Point(150,50)
-            $TextBox_Task.Text = $Task
-            $TextBox_Task.Size = New-Object System.Drawing.Size(300,30)
-
-            $Label_ticket_2 = New-Object System.Windows.Forms.Label
-            $Label_ticket_2.Text = "Last name"
-            $Label_ticket_2.Location = New-Object System.Drawing.Point(10,75)
-            $Label_ticket_2.AutoSize = $true
 
             $TextBox_LastName = New-Object System.Windows.Forms.TextBox
             $TextBox_LastName.Location  = New-Object System.Drawing.Point(150,75)
             $TextBox_LastName.Text = $LastName
             $TextBox_LastName.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_3 = New-Object System.Windows.Forms.Label
-            $Label_ticket_3.Text = "Firts name"
-            $Label_ticket_3.Location = New-Object System.Drawing.Point(10,100)
-            $Label_ticket_3.AutoSize = $true
+            $Label_ticket_2 = New-Object System.Windows.Forms.Label
+            $Label_ticket_2.Text = "Firts name"
+            $Label_ticket_2.Location = New-Object System.Drawing.Point(10,100)
+            $Label_ticket_2.AutoSize = $true
 
             $TextBox_FirstName = New-Object System.Windows.Forms.TextBox
             $TextBox_FirstName.Location  = New-Object System.Drawing.Point(150,100)
             $TextBox_FirstName.Text = $FirstName
             $TextBox_FirstName.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_4 = New-Object System.Windows.Forms.Label
-            $Label_ticket_4.Text = "Middle name"
-            $Label_ticket_4.Location = New-Object System.Drawing.Point(10,125)
-            $Label_ticket_4.AutoSize = $true
+            $Label_ticket_3 = New-Object System.Windows.Forms.Label
+            $Label_ticket_3.Text = "Middle name"
+            $Label_ticket_3.Location = New-Object System.Drawing.Point(10,125)
+            $Label_ticket_3.AutoSize = $true
 
             $TextBox_Initials = New-Object System.Windows.Forms.TextBox
             $TextBox_Initials.Location  = New-Object System.Drawing.Point(150,125)
             $TextBox_Initials.Text = $Initials
             $TextBox_Initials.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_5 = New-Object System.Windows.Forms.Label
-            $Label_ticket_5.Text = "Login"
-            $Label_ticket_5.Location = New-Object System.Drawing.Point(10,150)
-            $Label_ticket_5.AutoSize = $true
+            $Label_ticket_4 = New-Object System.Windows.Forms.Label
+            $Label_ticket_4.Text = "Login"
+            $Label_ticket_4.Location = New-Object System.Drawing.Point(10,150)
+            $Label_ticket_4.AutoSize = $true
 
             $TextBox_SamAccountName = New-Object System.Windows.Forms.TextBox
             $TextBox_SamAccountName.Location  = New-Object System.Drawing.Point(150,150)
             $TextBox_SamAccountName.Text = $SamAccountName
             $TextBox_SamAccountName.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_6 = New-Object System.Windows.Forms.Label
-            $Label_ticket_6.Text = "Office"
-            $Label_ticket_6.Location = New-Object System.Drawing.Point(10,175)
-            $Label_ticket_6.AutoSize = $true
+            $Label_ticket_5 = New-Object System.Windows.Forms.Label
+            $Label_ticket_5.Text = "Office"
+            $Label_ticket_5.Location = New-Object System.Drawing.Point(10,175)
+            $Label_ticket_5.AutoSize = $true
 
             $TextBox_Office = New-Object System.Windows.Forms.TextBox
             $TextBox_Office.Location  = New-Object System.Drawing.Point(150,175)
             $TextBox_Office.Text = $Office
             $TextBox_Office.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_7 = New-Object System.Windows.Forms.Label
-            $Label_ticket_7.Text = "Department"
-            $Label_ticket_7.Location = New-Object System.Drawing.Point(10,200)
-            $Label_ticket_7.AutoSize = $true
+            $Label_ticket_6 = New-Object System.Windows.Forms.Label
+            $Label_ticket_6.Text = "Department"
+            $Label_ticket_6.Location = New-Object System.Drawing.Point(10,200)
+            $Label_ticket_6.AutoSize = $true
 
             $TextBox_Department = New-Object System.Windows.Forms.TextBox
             $TextBox_Department.Location  = New-Object System.Drawing.Point(150,200)
             $TextBox_Department.Text = $Department
             $TextBox_Department.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_8 = New-Object System.Windows.Forms.Label
-            $Label_ticket_8.Text = "Management"
-            $Label_ticket_8.Location = New-Object System.Drawing.Point(10,225)
-            $Label_ticket_8.AutoSize = $true
-
-            $TextBox_Management = New-Object System.Windows.Forms.TextBox
-            $TextBox_Management.Location  = New-Object System.Drawing.Point(150,225)
-            $TextBox_Management.Text = $Management
-            $TextBox_Management.Size = New-Object System.Drawing.Size(300,30)
-
-            $Label_ticket_9 = New-Object System.Windows.Forms.Label
-            $Label_ticket_9.Text = "Subdivision"
-            $Label_ticket_9.Location = New-Object System.Drawing.Point(10,250)
-            $Label_ticket_9.AutoSize = $true
-
-            $TextBox_Division = New-Object System.Windows.Forms.TextBox
-            $TextBox_Division.Location  = New-Object System.Drawing.Point(150,250)
-            $TextBox_Division.Text = $Division
-            $TextBox_Division.Size = New-Object System.Drawing.Size(300,30)
-
-            $Label_ticket_10 = New-Object System.Windows.Forms.Label
-            $Label_ticket_10.Text = "Job title"
-            $Label_ticket_10.Location = New-Object System.Drawing.Point(10,275)
-            $Label_ticket_10.AutoSize = $true
+            $Label_ticket_7 = New-Object System.Windows.Forms.Label
+            $Label_ticket_7.Text = "Job title"
+            $Label_ticket_7.Location = New-Object System.Drawing.Point(10,275)
+            $Label_ticket_7.AutoSize = $true
 
             $TextBox_JobTitle = New-Object System.Windows.Forms.TextBox
             $TextBox_JobTitle.Location  = New-Object System.Drawing.Point(150,275)
             $TextBox_JobTitle.Text = $JobTitle
             $TextBox_JobTitle.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_11 = New-Object System.Windows.Forms.Label
-            $Label_ticket_11.Text = "Manager"
-            $Label_ticket_11.Location = New-Object System.Drawing.Point(10,300)
-            $Label_ticket_11.AutoSize = $true
+            $Label_ticket_8 = New-Object System.Windows.Forms.Label
+            $Label_ticket_8.Text = "Manager"
+            $Label_ticket_8.Location = New-Object System.Drawing.Point(10,300)
+            $Label_ticket_8.AutoSize = $true
 
             $TextBox_Manager = New-Object System.Windows.Forms.TextBox
             $TextBox_Manager.Location  = New-Object System.Drawing.Point(150,300)
             $TextBox_Manager.Text = $Manager
             $TextBox_Manager.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_12 = New-Object System.Windows.Forms.Label
-            $Label_ticket_12.Text = "Phone number"
-            $Label_ticket_12.Location = New-Object System.Drawing.Point(10,325)
-            $Label_ticket_12.AutoSize = $true
+            $Label_ticket_9 = New-Object System.Windows.Forms.Label
+            $Label_ticket_9.Text = "Phone number"
+            $Label_ticket_9.Location = New-Object System.Drawing.Point(10,325)
+            $Label_ticket_9.AutoSize = $true
 
             $TextBox_Phone = New-Object System.Windows.Forms.TextBox
             $TextBox_Phone.Location  = New-Object System.Drawing.Point(150,325)
             $TextBox_Phone.Text = $Phone
             $TextBox_Phone.Size = New-Object System.Drawing.Size(300,30)
 
-            $Label_ticket_13 = New-Object System.Windows.Forms.Label
-            $Label_ticket_13.Text = "Brithday"
-            $Label_ticket_13.Location = New-Object System.Drawing.Point(10,350)
-            $Label_ticket_13.AutoSize = $true
+            $Label_ticket_10 = New-Object System.Windows.Forms.Label
+            $Label_ticket_10.Text = "Brithday"
+            $Label_ticket_10.Location = New-Object System.Drawing.Point(10,350)
+            $Label_ticket_10.AutoSize = $true
 
             $TextBox_Birth = New-Object System.Windows.Forms.TextBox
             $TextBox_Birth.Location  = New-Object System.Drawing.Point(150,350)
@@ -253,11 +220,8 @@ function Manage-user{
                         Office = $TextBox_Office.Text
                         JobTitle = $TextBox_JobTitle.Text
                         Department = $TextBox_Department.Text
-                        Management = $TextBox_Management.Text
-                        Division = $TextBox_Division.Text
                         Phone = $TextBox_Phone.Text
                         Brith = $TextBox_Birth.Text
-                        Task = $TextBox_Task.Text
                         PipeLine = $PipeLine
                         Manager = $TextBox_Manager.Text}
                     Create_User -UserAttr $UserAttr -DC $DC -Path_OU $Path_OU
@@ -288,30 +252,24 @@ function Manage-user{
             $Form_Info_User.AutoSize = $true
             $Form_Info_User.Controls.Add($Label_Info_User)
             $Form_Info_User.Controls.Add($Label_ticket_1)
-            $Form_Info_User.Controls.Add($TextBox_Task)
-            $Form_Info_User.Controls.Add($Label_ticket_2)
             $Form_Info_User.Controls.Add($TextBox_LastName)
-            $Form_Info_User.Controls.Add($Label_ticket_3)
+            $Form_Info_User.Controls.Add($Label_ticket_2)
             $Form_Info_User.Controls.Add($TextBox_FirstName)
-            $Form_Info_User.Controls.Add($Label_ticket_4)
+            $Form_Info_User.Controls.Add($Label_ticket_3)
             $Form_Info_User.Controls.Add($TextBox_Initials)
-            $Form_Info_User.Controls.Add($Label_ticket_5)
+            $Form_Info_User.Controls.Add($Label_ticket_4)
             $Form_Info_User.Controls.Add($TextBox_SamAccountName)
-            $Form_Info_User.Controls.Add($Label_ticket_6)
+            $Form_Info_User.Controls.Add($Label_ticket_5)
             $Form_Info_User.Controls.Add($TextBox_Office)
-            $Form_Info_User.Controls.Add($Label_ticket_7)
+            $Form_Info_User.Controls.Add($Label_ticket_6)
             $Form_Info_User.Controls.Add($TextBox_Department)
-            $Form_Info_User.Controls.Add($Label_ticket_8)
-            $Form_Info_User.Controls.Add($TextBox_Management)
-            $Form_Info_User.Controls.Add($Label_ticket_9)
-            $Form_Info_User.Controls.Add($TextBox_Division)
-            $Form_Info_User.Controls.Add($Label_ticket_10)
+            $Form_Info_User.Controls.Add($Label_ticket_7)
             $Form_Info_User.Controls.Add($TextBox_JobTitle)
-            $Form_Info_User.Controls.Add($Label_ticket_11)
+            $Form_Info_User.Controls.Add($Label_ticket_8)
             $Form_Info_User.Controls.Add($TextBox_Manager)
-            $Form_Info_User.Controls.Add($Label_ticket_12)
+            $Form_Info_User.Controls.Add($Label_ticket_9)
             $Form_Info_User.Controls.Add($TextBox_Phone)
-            $Form_Info_User.Controls.Add($Label_ticket_13)
+            $Form_Info_User.Controls.Add($Label_ticket_10)
             $Form_Info_User.Controls.Add($TextBox_Birth)
             $Form_Info_User.Controls.Add($Button_Info_User)
             $Form_Info_User.Controls.Add($Button_Back)
@@ -340,13 +298,10 @@ function Manage-user{
                 $Office          = $UserAttr.Office
                 $JobTitle        = $UserAttr.JobTitle
                 $Department      = $UserAttr.Department
-                $Management      = $UserAttr.Management
                 $Phone           = $UserAttr.Phone
                 $Birth           = $UserAttr.Brith
-                $Task            = $UserAttr.Task
                 $PipeLine        = $UserAttr.PipeLine
                 $Manager         = $UserAttr.Manager
-                $Division        = $UserAttr.Division    
                 try{
                     $UserPrincipalName = $SamAccountName + "@" + $domain
                     $DisplayName = $LastName + " " + $FirstName
@@ -504,7 +459,6 @@ function Manage-user{
                 Set-JiraConfigServer -Server "$Jira"
                 $Full_Data = Get-JiraIssue -Issue "$PipeLine" -Credential $cred -Fields customfield_10708,customfield_10408,customfield_10506,customfield_10502,customfield_10503,customfield_11305,customfield_10501 #получение данных из Jira
                 [array]$Array_City = $Full_Data.customfield_10501
-                [string]$Manager          =   $Full_Data.customfield_10708.name
                 [string]$LastName         =   ($Full_Data.customfield_10408).Split(" ")[0]
                 [string]$FirstName        =   ($Full_Data.customfield_10408).Split(" ")[1]
                 [string]$Initials         =   ($Full_Data.customfield_10408).Split(" ")[2]
@@ -698,7 +652,6 @@ function Manage-user{
                     -Surname $LastName `
                     -OfficePhone $Phone `
                     -Department $Department `
-                    -Manager $Manager `
                     -UserPrincipalName $UserPrincipalName `
                     -SamAccountName $SamAccountName `
                     -Path $Path_OU_Outstaff `
@@ -866,7 +819,7 @@ function Manage-user{
                     $SourceGroups = Get-ADPrincipalGroupMembership -Identity $SourceUserLogin.SamAccountName | Where-Object {$_.name -ne "Domain Users"}
                     Add-ADPrincipalGroupMembership -Identity $TargetUserLogin.SamAccountName -MemberOf $sourceGroups
 
-                    $Green_Color = "green"
+                    $Color = "green"
                     $Outcome="Groups from user $SourceUser copied"
                                     }
                 catch {
@@ -883,7 +836,7 @@ function Manage-user{
                 finally{
                     $Text_Copy_group_done = New-Object System.Windows.Forms.Label
                     $Text_Copy_group_done.Text = $Outcome
-                    $Text_Copy_group_done.ForeColor = $Green_Color
+                    $Text_Copy_group_done.ForeColor = $Color
                     $Text_Copy_group_done.Location = New-Object System.Drawing.Point(10,20)
                     $Text_Copy_group_done.AutoSize = $true
                 
@@ -1691,7 +1644,7 @@ function Manage-user{
             $Button_Check_Pass.Add_Click(
                 {
                 [string]$Name = $ComboBox_Info_Pass.selectedItem
-                $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter 'cn -eq $Name' -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
+                $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter "cn -eq $Name" -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
                 }
             )
     
