@@ -6,8 +6,7 @@ The contents of the folder are located on the server that is used for RemoteApp 
 
 To work correctly on the server with RemoteApp, you need to install the PowerShell module - [JiraPS](https://atlassianps.org/docs/JiraPS/)   
 
-Next, depending on the settings of Jira fields, you need to specify your fields that contain the information necessary to create user accounts.
-
+Further, depending on the Jira field settings, you must specify your fields, which contain the information necessary to create user accounts.   
 ## You must specify yourself
 
 In the file [Start.ps1] (https://github.com/AleksandrMikoshi/PowerShell/blob/main/Manage-Users/Client/Start.ps1) you need to specify the variables:
