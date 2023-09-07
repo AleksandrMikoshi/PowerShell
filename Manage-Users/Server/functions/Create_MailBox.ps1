@@ -24,7 +24,7 @@ function Create_MailBox {
     try {
         $ErrorActionPreference = 'Stop'
 
-        New-Mailbox -Name $Name -UserPrincipalName $UserPrincipalName -Password $password_mail - DisplayName $Name -OrganizationUnit $Path_Mail -Database DAG_DB02 -DomainController $DC
+        New-Mailbox -Name $Name -UserPrincipalName $UserPrincipalName -Password $password_mail - DisplayName $Name -OrganizationUnit $Path_Mail -Database $DB -DomainController $DC
         Remove-PSSession $Session
         $Color = "green"
         $Outcome="Mailbox $Name ($UserPrincipalName) created"

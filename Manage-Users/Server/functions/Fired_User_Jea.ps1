@@ -9,7 +9,9 @@ function Fired_User_Jea{
         [Parameter(Mandatory)]
         $DC,
         [Parameter(Mandatory)]
-        $Path_log
+        $Path_log,
+        [Parameter(Mandatory)]
+        $Path_fired
     )
     $UserLogin = Get-ADUser -Filter "cn -eq '$User'" -Properties SamAccountName
     $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://$Mail_serv/PowerShell/ -Authentication Kerberos -Credential $Cred_Exch

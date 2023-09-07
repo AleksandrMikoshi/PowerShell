@@ -18,7 +18,7 @@ function Create_Mail_for_Outstaff{
     try{
         $ErrorActionPreference = 'Stop'
 
-        Enable-Mailbox -identity $User -Alias $UserLogin -Database DAG_DB02 -DomainController $DC
+        Enable-Mailbox -identity $User -Alias $UserLogin -Database $DB -DomainController $DC
         Enable-Mailbox -identity $User -archive -ArchiveDatabase ARCHIVE -DomainController $DC
         Get-GlobalAddressList | Update-GlobalAddressList
         Get-OfflineAddressBook | Update-OfflineAddressBook

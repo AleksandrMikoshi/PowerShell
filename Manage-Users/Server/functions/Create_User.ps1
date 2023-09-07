@@ -57,7 +57,7 @@ function Create_User {
         }
         Set-JiraIssue @parameters -Issue "$PipeLine" -Credential $Cred_Jira
     
-        Enable-Mailbox -identity $SamAccountName -Alias $SamAccountName -Database DAG_DB02 -DomainController $DC
+        Enable-Mailbox -identity $SamAccountName -Alias $SamAccountName -Database $DB -DomainController $DC
         Enable-Mailbox -identity $SamAccountName -archive -ArchiveDatabase ARCHIVE -DomainController $DC
         Get-GlobalAddressList | Update-GlobalAddressList
         Get-OfflineAddressBook | Update-OfflineAddressBook
