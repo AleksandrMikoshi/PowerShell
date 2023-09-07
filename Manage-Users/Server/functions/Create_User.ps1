@@ -48,10 +48,7 @@ function Create_User {
         Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute1 = $Birth }
         Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute2 = $Initials }
         Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute15 = "$Birth" }
- 
-        $default_g = 'Jira_Users','Confluence_Users','owncloud_users','bitrix_users','jrnlng','ra_users'
-        $default_g | ForEach-Object {Add-ADGroupMember $PSItem $SamAccountName -Server $DC}
-    
+     
         $user_creds = "Login: $SamAccountName`nPassword: $password"
         $parameters = @{
             Fields = @{

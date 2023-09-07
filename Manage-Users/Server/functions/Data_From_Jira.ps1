@@ -6,7 +6,7 @@ function Data_From_Jira{
         [string]$PipeLine
     )   
     Set-JiraConfigServer -Server "$Jira"
-    $Full_Data = Get-JiraIssue -Issue "$PipeLine" -Credential $Cred_Jira -Fields customfield_10409,customfield_10708,customfield_10408,customfield_10506,customfield_10410,customfield_10502,customfield_10503,customfield_10505,customfield_10501,customfield_10700,Key #получение данных из Jira
+    $Full_Data = Get-JiraIssue -Issue "$PipeLine" -Credential $Cred_Jira -Fields customfield_10409,customfield_10708,customfield_10408,customfield_10506,customfield_10410,customfield_10502,customfield_10503,customfield_10505,customfield_10501,customfield_10700,Key
     [array]$Array_City               =   ($Full_Data.customfield_10501)
     [System.DateTime]$Data           =   get-date ($Full_Data.customfield_10505)
     [string]$Global:Manager          =   $Full_Data.customfield_10708.name

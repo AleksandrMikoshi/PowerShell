@@ -37,7 +37,7 @@ function Create_Outstaff_User {
         Add-ADGroupMember Confluence_Users -Server $DC $SamAccountName
         Add-ADGroupMember owncloud_users -Server $DC $SamAccountName
     
-        $user_creds = "Логин: $SamAccountName`nПароль: $password"
+        $user_creds = "Login: $SamAccountName`nPassword: $password"
         $parameters = @{
             Fields = @{
                 customfield_10641 = "$user_creds"
