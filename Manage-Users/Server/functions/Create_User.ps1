@@ -60,10 +60,10 @@ function Create_User {
 
         New-ADUser $FullName @ADParameters
 
-        if ($UserAttr.Division -ne '') { Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute3 = "$Division" } }
-        if ($UserAttr.Management -ne '') { Set-ADUser -Server $DC $SamAccountName -Replace @{extensionAttribute4 = "$Management" } }
+        if ($UserAttr.Division -ne '') { Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute3 = "$UserAttr.Division" } }
+        if ($UserAttr.Management -ne '') { Set-ADUser -Server $DC $SamAccountName -Replace @{extensionAttribute4 = "UserAttr.$Management" } }
     
-        $user_creds = "Логин: $SamAccountName`nПароль: $password"
+        $user_creds = "Login: $SamAccountName`nPassword: $password"
         $parameters = @{
             Fields = @{
                 customfield_10641 = "$user_creds"
@@ -80,7 +80,7 @@ function Create_User {
         $Color = "green"
         $Outcome="
             User $LastName $FirstName created
-            Mailbox '$SamAccountName@m2.ru' has been created"
+            Mailbox '$SamAccountName@$Domain' has been created"
         $Total = @{
             Color = $Color
             Outcome = $Outcome

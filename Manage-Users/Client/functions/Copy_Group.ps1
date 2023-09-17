@@ -8,6 +8,8 @@ function Copy_group {
     $Text_From_Copy_Group.Location = New-Object System.Drawing.Point(10,30)
     $Text_From_Copy_Group.AutoSize = $true
 
+    <#Menu for user selection#>
+    <#Меню для выбора пользователя#>
     $ComboBox_From_Copy_Group = New-Object System.Windows.Forms.ComboBox
     $ComboBox_From_Copy_Group.Width = 250
     $ComboBox_From_Copy_Group.MaxDropDownItems = 20
@@ -22,6 +24,8 @@ function Copy_group {
     $Text_To_Copy_Group.Location = New-Object System.Drawing.Point(10,80)
     $Text_To_Copy_Group.AutoSize = $true
 
+    <#Menu for user selection#>
+    <#Меню для выбора пользователя#>
     $ComboBox_To_Copy_Group = New-Object System.Windows.Forms.ComboBox
     $ComboBox_To_Copy_Group.Width = 250
     $ComboBox_To_Copy_Group.MaxDropDownItems = 20

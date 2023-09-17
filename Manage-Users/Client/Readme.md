@@ -24,7 +24,6 @@ In the file [Start.ps1](https://github.com/AleksandrMikoshi/PowerShell/blob/main
 | $Background_Image     | "The path on the disk where the image for the background of the application is located"   |
 | $Icon                 | "Disk path where icon image is located"                                                   |
 | $Label_Text           | "Company name or any other signature at the bottom of the form"                           |
-| $Cat                  | "Disk path where image for 'Cat' is located"                                              |
 | $Fields               | "Fields in Jira for receiving information about the user being created"                   |
 | $Fields_Outstaff      | "Fields in Jira for obtaining information about the external employee being created"      |
 

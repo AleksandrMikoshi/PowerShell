@@ -38,7 +38,7 @@ function Full_Access_Jea{
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red" 
-        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
+        $Outcome = 'Execution failed. Contact your system administrator'
         $Total = @{
             Color = $Color
             Outcome = $Outcome

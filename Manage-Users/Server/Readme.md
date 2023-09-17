@@ -15,5 +15,5 @@ In the File [ManageUser.psm1](https://github.com/AleksandrMikoshi/PowerShell/blo
 | $API_key_Passwork     | API key for authorization in Passwork             |
 | $URL_data_passwords   | API address for getting passwords from Paswork    |
 | $Case_Passwork        | Specifying an entry in Passwork to use            |
-| $domain               | Company domain (company.com)                      |
+| $Domain               | Company domain (company.com)                      |
 | $Jira                 | Jira Server URL                                   |

@@ -36,7 +36,7 @@ function Send_As{
         $InvocationInfo = ($Error[0].InvocationInfo).PositionMessage
         $Value = "$Data" + " " + "$Exception"+"
         " + "$InvocationInfo"
-        Add-Content -Path "C:\JEA\Logs\Error_2.txt" -Value $Value
+        Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red" 
         $Outcome = 'Execution failed. Contact your system administrator'
