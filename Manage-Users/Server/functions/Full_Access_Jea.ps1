@@ -22,14 +22,13 @@ function Full_Access_Jea{
         }
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="'Full Access' rights granted"
+        $Outcome="Права 'Полный доступ' предоставлены"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
         }
         $Total
     }
- 
     catch {
         $Data = Get-Date
         $Exception = ($Error[0].Exception).Message
@@ -39,7 +38,7 @@ function Full_Access_Jea{
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red" 
-        $Outcome = 'Execution failed. Contact your system administrator'
+        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
         $Total = @{
             Color = $Color
             Outcome = $Outcome

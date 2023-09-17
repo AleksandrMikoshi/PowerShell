@@ -15,6 +15,9 @@ $Background_Image = "C:\Image\Background.jpg" #example
 $Icon = New-Object system.drawing.icon "C:\Image\icon.ico" #example
 $Label_Text = "Company_Name"
 $Cat = 'C:\Image\Cat.jpg' #example
+$Fields = 'customfield_10409,customfield_10708,customfield_10408,customfield_10506,customfield_10410,customfield_10502,customfield_10503,customfield_10505,customfield_10501,customfield_10700,Key'
+$Fields_Outstaff = 'customfield_10708,customfield_10408,customfield_10506,customfield_10502,customfield_10503,customfield_11305,customfield_10501'
+
  
 $FunctionFiles = Get-ChildItem -Path $PSScriptRoot\functions -Filter *.ps1
 foreach ($file in $FunctionFiles) {

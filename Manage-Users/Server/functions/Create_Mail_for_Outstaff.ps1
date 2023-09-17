@@ -9,7 +9,11 @@ function Create_Mail_for_Outstaff{
         [Parameter(Mandatory)]
         $Mail_serv,
         [Parameter(Mandatory)]
-        $Path_log
+        $Path_log,
+        [Parameter(Mandatory)]
+        $DB_Mail,
+        [Parameter(Mandatory)]
+        $ArchiveDatabase
     )
     $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://$Mail_serv/PowerShell/ -Authentication Kerberos -Credential $Cred_Exch
     Import-PSSession $Session -AllowClobber -CommandName Enable-Mailbox,Get-GlobalAddressList,Update-GlobalAddressList,Get-OfflineAddressBook,Update-OfflineAddressBook,Get-AddressList,Update-AddressList -DisableNameChecking
@@ -18,22 +22,21 @@ function Create_Mail_for_Outstaff{
     try{
         $ErrorActionPreference = 'Stop'
 
-        Enable-Mailbox -identity $User -Alias $UserLogin -Database $DB -DomainController $DC
-        Enable-Mailbox -identity $User -archive -ArchiveDatabase ARCHIVE -DomainController $DC
+        Enable-Mailbox -identity $UserLogin -Alias $User -Database $DB_Mail -DomainController $DC
+        Enable-Mailbox -identity $UserLogin -archive -ArchiveDatabase $ArchiveDatabase -DomainController $DC
         Get-GlobalAddressList | Update-GlobalAddressList
         Get-OfflineAddressBook | Update-OfflineAddressBook
         Get-AddressList | Update-AddressList
 
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="Mailbox $User@$Domain created"
+        $Outcome="Почтовый ящик $User@m2.ru создан"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
         }
         $Total
     }
- 
     catch {
         $Data = Get-Date
         $Exception = ($Error[0].Exception).Message
@@ -43,7 +46,7 @@ function Create_Mail_for_Outstaff{
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red"
-        $Outcome = 'Execution failed. Contact your system administrator'
+        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -51,4 +54,3 @@ function Create_Mail_for_Outstaff{
         $Total
     }
 }
- 

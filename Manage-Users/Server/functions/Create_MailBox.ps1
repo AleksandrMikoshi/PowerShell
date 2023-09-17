@@ -11,28 +11,32 @@ function Create_MailBox {
         [Parameter(Mandatory)]
         $Mail_serv,
         [Parameter(Mandatory)]
-        $Path_log
+        $Path_log,
+        [Parameter(Mandatory)]
+        $DB_Mail
     )
-    $Name = $UserAttr.Name
-    $UserPrincipalName = $UserAttr.UserPrincipalName
-    $password_mail = $UserAttr.password_mail
+    $Name = $MailAttr.Name
+    $UserPrincipalName = $MailAttr.UserPrincipalName
+    $leght = Get-Random -Minimum 8 -Maximum 12
+    $generate = [System.Web.Security.Membership]::GeneratePassword($leght,2)
+    $password_mail = ConvertTo-SecureString $generate -AsPlainText -Force
 
     $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://$Mail_serv/PowerShell/ -Authentication Kerberos -Credential $Cred_Exch
     Import-PSSession $Session -AllowClobber -CommandName New-Mailbox -DisableNameChecking
 
- 
     try {
         $ErrorActionPreference = 'Stop'
 
-        New-Mailbox -Name $Name -UserPrincipalName $UserPrincipalName -Password $password_mail - DisplayName $Name -OrganizationUnit $Path_Mail -Database $DB -DomainController $DC
-        Remove-PSSession $Session
+        New-Mailbox -Name $Name -UserPrincipalName $UserPrincipalName -Password $password_mail -DisplayName $Name -OrganizationalUnit $Path_Mail -Database DB_Mail -DomainController $DC
         $Color = "green"
-        $Outcome="Mailbox $Name ($UserPrincipalName) created"
+        $Outcome="Почтовый ящик $Name ($UserPrincipalName) создан"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
         }
         $Total 
+        Remove-PSSession $Session
+
     }
     catch {
         $Data = Get-Date
@@ -43,7 +47,7 @@ function Create_MailBox {
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red" 
-        $Outcome = 'Execution failed. Contact your system administrator'
+        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -52,4 +56,3 @@ function Create_MailBox {
     }
 
 }
- 

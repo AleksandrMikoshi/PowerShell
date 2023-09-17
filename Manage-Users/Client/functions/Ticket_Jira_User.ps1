@@ -9,7 +9,7 @@ function Ticket_Jira_User {
     $Button_Ticket_Jira.Text = "Continue"
     $Button_Ticket_Jira.Add_click(
         {
-            $Data = Data_From_Jira -PipeLine $TextBox_Ticket_Jira.Text
+            $Data = Data_From_Jira -PipeLine $TextBox_Ticket_Jira.Text -Fields $Fields
             Info_from_Jira -Data $Data
         }
     )

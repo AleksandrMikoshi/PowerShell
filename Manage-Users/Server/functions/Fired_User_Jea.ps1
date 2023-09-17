@@ -30,20 +30,19 @@ function Fired_User_Jea{
         " + "$InvocationInfo"
         Add-Content -Path Path_log -Value $Value
     }
- 
     finally{
-        Get-ADUser -Identity $UserLogin -server $DC | Move-ADObject -targetpath $Path_fired
         Set-Mailbox -Identity $UserLogin -HiddenFromAddressListsEnabled $true
         Set-ADUser -Identity $UserLogin -Enabled $false
         Set-ADUser -Identity $UserLogin -Manager $null
-            
+        Get-ADUser -Identity $UserLogin -server $DC | Move-ADObject -targetpath $Path_fired
+  
         Disable-mailbox -Identity $UserLogin -Confirm:$false
         Get-GlobalAddressList | Update-GlobalAddressList
         Get-OfflineAddressBook | Update-OfflineAddressBook
         Get-AddressList | Update-AddressList
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="$User account disabled"
+        $Outcome="Учётная запись $User отключена"
         $Total = @{
             Color = $Color
             Outcome = $Outcome

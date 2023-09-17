@@ -4,13 +4,11 @@ function Data_From_Jira_Outstaff{
     param (
         [Parameter(Mandatory)]
         [string]$PipeLine,
-        [Parameter(Mandatory)]
-        [string]$Jira,
-        [Parameter(Mandatory)]
-        [securestring]$Cred_Jira
+         [Parameter(Mandatory)]
+        [string]$Fields_Outstaff 
     )   
     Set-JiraConfigServer -Server "$Jira"
-    $Full_Data = Get-JiraIssue -Issue "$PipeLine" -Credential $Cred_Jira -Fields customfield_10708,customfield_10408,customfield_10506,customfield_10502,customfield_10503,customfield_11305,customfield_10501 #получение данных из Jira
+    $Full_Data = Get-JiraIssue -Issue "$PipeLine" -Credential $Cred_Jira -Fields $Fields_Outstaff
     [array]$Array_City        =   $Full_Data.customfield_10501
     [string]$Manager          =   $Full_Data.customfield_10708.name
     [string]$LastName         =   ($Full_Data.customfield_10408).Split(" ")[0]
@@ -23,16 +21,14 @@ function Data_From_Jira_Outstaff{
     [string]$Company          =   $Full_Data.customfield_11305
 
     $UserAttr = @{
-        LastName = $LastName
-        FirstName = $FirstName
-        Initials = $Initials
-        SamAccountName = $SamAccountName
-        Office = $Office
-        Department = $Department
-        Phone = $Phone
-        Manager = $Manager
-        Company = $Company}
-        $UserAttr
-    }
-     
-    
+    LastName = $LastName
+    FirstName = $FirstName
+    Initials = $Initials
+    SamAccountName = $SamAccountName
+    Office = $Office
+    Department = $Department
+    Phone = $Phone
+    Manager = $Manager
+    Company = $Company}
+    $UserAttr
+}

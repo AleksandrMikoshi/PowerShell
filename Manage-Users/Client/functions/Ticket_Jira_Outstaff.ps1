@@ -9,7 +9,7 @@ function Ticket_Jira_Outstaff {
     $Button_Ticket_Jira_Outstaff.Text = "Continue"
     $Button_Ticket_Jira_Outstaff.Add_click(
         {
-            $Data = Data_From_Jira_Outstaff -PipeLine $TextBox_Ticket_Jira_Outstaff.Text
+            $Data = Data_From_Jira_Outstaff -PipeLine $TextBox_Ticket_Jira_Outstaff.Text -Fields_Outstaff $Fields_Outstaff 
             Info_from_Jira_Outstaff -Data $Data
         }
     )

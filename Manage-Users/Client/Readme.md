@@ -9,7 +9,7 @@ To work correctly on the server with RemoteApp, you need to install the PowerShe
 Further, depending on the Jira field settings, you must specify your fields, which contain the information necessary to create user accounts.   
 ## You must specify yourself
 
-In the file [Start.ps1] (https://github.com/AleksandrMikoshi/PowerShell/blob/main/Manage-Users/Client/Start.ps1) you need to specify the variables:
+In the file [Start.ps1](https://github.com/AleksandrMikoshi/PowerShell/blob/main/Manage-Users/Client/Start.ps1) you need to specify the variables:
 
 ### Shared variables
 | Variable              | What needs to be specified                                                                |
@@ -22,12 +22,15 @@ In the file [Start.ps1] (https://github.com/AleksandrMikoshi/PowerShell/blob/mai
 | $Path_OU_Outstaff     | "Path in Active Directory where external user accounts are stored"                        |
 | $PathMail             | "The path in Active Directory where mail address accounts are stored"                     |
 | $Background_Image     | "The path on the disk where the image for the background of the application is located"   |
-| $ Icon                | New-Object system.drawing.icon "Disk path where icon image is located"                    |
+| $Icon                 | "Disk path where icon image is located"                                                   |
 | $Label_Text           | "Company name or any other signature at the bottom of the form"                           |
 | $Cat                  | "Disk path where image for 'Cat' is located"                                              |
+| $Fields               | "Fields in Jira for receiving information about the user being created"                   |
+| $Fields_Outstaff      | "Fields in Jira for obtaining information about the external employee being created"      |
+
 
 ### Fields from Jira
-Here is an example of my Jira fields, if necessary, you need to replace "Data_From_Jira.ps1" and "Data_From_Jira_Outstaff.ps1" with your own values in the functions
+Here is an example of my Jira fields, if necessary, you need to replace them with your values
 
 | Field             | What is in the box                                                            |
 |---|---|

@@ -2,12 +2,13 @@
 Reading the functions lying in the "functions" folder to activate them in the session#>
 <#Создание переменных для дальнейшего подключения к серверам Jira и Passwork при необходимости
 Считываение функций лежащих в папке "functions" для их активации в сессии#>
+$Domain = "DOMAIN"
+$Jira = 'Jira_Server'
+
 $URL_auth = "https://URL/api/v4/auth/login/"
 $API_key_Passwork = "API_KEY"
 $URL_data_passwords = "https://URL/api/v4/passwords/"
 $Case_Passwork = "CASE"
-$Domain = "DOMAIN"
-$Jira = 'Jira_Server'
 
 $URL_data_Passwork = $URL_data_passwords+$Case_Passwork
 $URL_auth_Passwork = $URL_auth+$API_key_Passwork

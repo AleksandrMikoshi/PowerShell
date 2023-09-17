@@ -21,7 +21,7 @@ function Create_Outstaff_User {
     $Company         = $UserAttr.Company
     try{
         $ErrorActionPreference = 'Stop'
-        $UserPrincipalName = $SamAccountName + "@" + $Domain
+        $UserPrincipalName = $SamAccountName + "@m2.ru"
         $FullName = $LastName + " " + $FirstName + " " + $Initials
         $DisplayName = $LastName + " " + $FirstName
         $length = Get-Random -Minimum 8 -Maximum 11
@@ -37,7 +37,7 @@ function Create_Outstaff_User {
         Add-ADGroupMember Confluence_Users -Server $DC $SamAccountName
         Add-ADGroupMember owncloud_users -Server $DC $SamAccountName
     
-        $user_creds = "Login: $SamAccountName`nPassword: $password"
+        $user_creds = "Логин: $SamAccountName`nПароль: $password"
         $parameters = @{
             Fields = @{
                 customfield_10641 = "$user_creds"
@@ -46,14 +46,13 @@ function Create_Outstaff_User {
         Set-JiraIssue @parameters -Issue "$PipeLine" -Credential $cred
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="User $LastName $FirstName created"
+        $Outcome="Пользователь $LastName $FirstName создаy"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
         }
         $Total
     }
- 
     catch {
         $Data = Get-Date
         $Exception = ($Error[0].Exception).Message
@@ -63,7 +62,7 @@ function Create_Outstaff_User {
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red"
-        $Outcome = 'Execution failed. Contact your system administrator'
+        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -71,4 +70,3 @@ function Create_Outstaff_User {
         $Total
     }
 }
- 
