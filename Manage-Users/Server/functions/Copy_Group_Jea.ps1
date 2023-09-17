@@ -15,7 +15,7 @@ function Copy_Group_Jea {
         Add-ADPrincipalGroupMembership -Identity $TargetUserLogin.SamAccountName -MemberOf $sourceGroups -ErrorAction Stop
 
         $Color = "green"
-        $Outcome="Группы от пользователя $SourceUser успешно скопированы"
+        $Outcome="Groups from user $SourceUser copied successfully"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -32,7 +32,7 @@ function Copy_Group_Jea {
         Add-Content -Path $Path_log -Value $Value
 
         $Color = "red" 
-        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
+        $Outcome = 'Execution failed. Contact your system administrator'
         $Total = @{
             Color = $Color
             Outcome = $Outcome

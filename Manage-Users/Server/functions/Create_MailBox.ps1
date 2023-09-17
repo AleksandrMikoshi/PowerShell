@@ -29,7 +29,7 @@ function Create_MailBox {
 
         New-Mailbox -Name $Name -UserPrincipalName $UserPrincipalName -Password $password_mail -DisplayName $Name -OrganizationalUnit $Path_Mail -Database DB_Mail -DomainController $DC
         $Color = "green"
-        $Outcome="Почтовый ящик $Name ($UserPrincipalName) создан"
+        $Outcome="Mailbox $Name ($UserPrincipalName) created"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -47,7 +47,7 @@ function Create_MailBox {
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red" 
-        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
+        $Outcome = 'Execution failed. Contact your system administrator'
         $Total = @{
             Color = $Color
             Outcome = $Outcome

@@ -30,7 +30,7 @@ function Create_Mail_for_Outstaff{
 
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="Почтовый ящик $User@m2.ru создан"
+        $Outcome="Mailbox $User@$Domain has been created"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -46,7 +46,7 @@ function Create_Mail_for_Outstaff{
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red"
-        $Outcome = 'Выполнение не удалось. Обратитесь к системному администратору'
+        $Outcome = 'Execution failed. Contact your system administrator'
         $Total = @{
             Color = $Color
             Outcome = $Outcome

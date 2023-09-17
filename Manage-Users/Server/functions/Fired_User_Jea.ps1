@@ -42,7 +42,7 @@ function Fired_User_Jea{
         Get-AddressList | Update-AddressList
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="Учётная запись $User отключена"
+        $Outcome="$User account disabled"
         $Total = @{
             Color = $Color
             Outcome = $Outcome

@@ -22,7 +22,7 @@ function Full_Access_Jea{
         }
         Remove-PSSession $Session
         $Color = "green"
-        $Outcome="Права 'Полный доступ' предоставлены"
+        $Outcome="'Full Access' rights granted"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
