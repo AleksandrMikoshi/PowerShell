@@ -36,7 +36,7 @@ function Info_Pass {
     $Button_Check_Pass.Add_Click(
         {
             [string]$Name = $ComboBox_Info_Pass.selectedItem
-            $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter 'cn -eq $Name' -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
+            $Text_Info_Pass_3.Text = [datetime]::FromFileTime((Get-ADUser -Filter "cn -eq $Name" -Properties pwdLastSet).pwdLastSet).ToString('dd.MM.yyyy hh:mm')
         }
     )
 
