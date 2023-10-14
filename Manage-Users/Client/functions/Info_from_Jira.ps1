@@ -8,6 +8,8 @@ function Info_from_Jira {
         $Data
     )   
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $Label_Info_User = New-Object System.Windows.Forms.Label
     $Label_Info_User.Text = "Check data"
@@ -161,12 +163,10 @@ function Info_from_Jira {
             Management      = $TextBox_Management.Text
             Phone           = $TextBox_Phone.Text
             Birth           = $TextBox_Birth.Text
-            Task            = $TextBox_Task.Text
             Manager         = $TextBox_Manager.Text
             Division        = $TextBox_Division.Text
             PipeLine        = $TextBox_Task.Text
         }
-        $Create = Create_User -UserAttr $UserAttr -DC $DC -Path_OU $Path_OU -Mail_serv $Mail_serv -Path_log $Path_log
         $Form_Info_User.Controls.Remove($Label_Info_User)
         $Form_Info_User.Controls.Remove($Label_ticket_1)
         $Form_Info_User.Controls.Remove($TextBox_Task)
@@ -195,33 +195,61 @@ function Info_from_Jira {
         $Form_Info_User.Controls.Remove($Label_ticket_13)
         $Form_Info_User.Controls.Remove($TextBox_Birth)
         $Form_Info_User.Controls.Remove($Button_Info_User)
-        [string]$Color = $Create.Color
-        $Outcome = $Create.Outcome
+
         $Text_Create_User = New-Object System.Windows.Forms.Label
-        $Text_Create_User.Text = $Outcome
-        $Text_Create_User.ForeColor = $Color
+        $Text_Create_User.Text = "- Create an account"
         $Text_Create_User.Location = New-Object System.Drawing.Point(10,20)
         $Text_Create_User.AutoSize = $true
+        $Text_Create_User.BackColor = $Label_Color
+        $Text_Create_User.ForeColor = $Text_Label
         $Form_Info_User.Controls.Add($Text_Create_User)
+            
+        $Text_Add_Mail = New-Object System.Windows.Forms.Label
+        $Text_Add_Mail.Text = "- Creating a mailbox"
+        $Text_Add_Mail.Location = New-Object System.Drawing.Point(10,40)
+        $Text_Add_Mail.AutoSize = $true
+        $Text_Add_Mail.BackColor = $Label_Color
+        $Text_Add_Mail.ForeColor = $Text_Label
+        $Form_Info_User.Controls.Add($Text_Add_Mail)
+
+        $Text_Add_Group = New-Object System.Windows.Forms.Label
+        $Text_Add_Group.Text = "- Adding groups to Active Directory"
+        $Text_Add_Group.Location = New-Object System.Drawing.Point(10,60)
+        $Text_Add_Group.AutoSize = $true
+        $Text_Add_Group.BackColor = $Label_Color
+        $Text_Add_Group.ForeColor = $Text_Label
+        $Form_Info_User.Controls.Add($Text_Add_Group)
+
+        $Create = Create_User -UserAttr $UserAttr -DC $DC -Path_OU $Path_OU -Path_log $Path_log
+        $Outcome_User = $Create.Outcome
+        [string]$Color_User = $Create.Color
+        $Text_Create_User.Text = $Outcome_User
+        $Text_Create_User.ForeColor = $Color_User
+
+        sleep 1
+
+        $CreateUserMail = Create_Mail_Jea -UserAttr $UserAttr -DC $DC -Mail_serv $Mail_serv -Path_log $Path_log -DB_Mail $DB_Mail -ArchiveDatabase $ArchiveDatabase
+        $Outcome_User_Mail = $CreateUserMail.Outcome
+        [string]$Color_User_Mail = $CreateUserMail.Color
+        $Text_Add_Mail.Text = $Outcome_User_Mail
+        $Text_Add_Mail.ForeColor = $Color_User_Mail
+
+        sleep 1
+
+        $AddGroup = Add_Group -UserAttr $UserAttr -DC $DC -Path_log $Path_log
+        $Outcome_Group = $AddGroup.Outcome
+        [string]$Color_Group = $AddGroup.Color
+        $Text_Add_Group.Text = $Outcome_Group
+        $Text_Add_Group.ForeColor = $Color_Group
+
         }
     )
-            
+             
     $Button_Back = New-Object System.Windows.Forms.Button
     $Button_Back.Text = 'Back'
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$Back = Ticket_Jira_User $Form_Info_User.Dispose(),$Back})
     $Button_Back.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Form_Info_User = New-Object System.Windows.Forms.Form

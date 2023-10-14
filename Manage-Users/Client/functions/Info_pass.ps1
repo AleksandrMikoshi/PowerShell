@@ -1,6 +1,9 @@
 <#Menu function to view when the user last changed the password#>
 <#Функция меню для просмотра когда пользователь последний раз менял пароль#>
 function Info_Pass {
+    Label
+    Button_Exit 
+
     $Text_Info_Pass = New-Object System.Windows.Forms.Label
     $Text_Info_Pass.Text = "Select user"
     $Text_Info_Pass.Location = New-Object System.Drawing.Point(10,20)
@@ -42,17 +45,6 @@ function Info_Pass {
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$IM = InfoMenu $Info_Pass.Dispose(),$IM})
     $Button_Back.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Info_Pass = New-Object System.Windows.Forms.Form

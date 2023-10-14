@@ -2,6 +2,8 @@
 <#Функция меню для указания данных для дальнейшего создания почтового ящика#>
 function Create_mail {
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $Label_Create_mail = New-Object System.Windows.Forms.Label
     $Label_Create_mail.Text = "Enter information to create a mailbox"
@@ -66,17 +68,6 @@ function Create_mail {
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$EM = ExchangeMenu $Form_Mail_create.Dispose(),$EM})
     $Button_Back.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Form_Mail_create = New-Object System.Windows.Forms.Form

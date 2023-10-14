@@ -4,7 +4,7 @@ Reading the functions lying in the "functions" folder to activate them in the se
 Считываение функций лежащих в папке "functions" для их активации в сессии#>
 $Domain = "DOMAIN"
 $Jira = 'Jira_Server'
-
+$Group = 'Default groups required to add'
 $URL_auth = "https://URL/api/v4/auth/login/"
 $API_key_Passwork = "API_KEY"
 $URL_data_passwords = "https://URL/api/v4/passwords/"

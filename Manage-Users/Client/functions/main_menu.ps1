@@ -2,7 +2,9 @@
 <#Главное меню управления учетными записями пользователей#>
 function main_menu {
     Add-Type -assembly System.Windows.Forms
-    
+    Label
+    Button_Exit 
+
     $global:Button_ADMenu = New-Object System.Windows.Forms.Button
     $global:Button_ADMenu.Text = 'Active Directory Account Management'
     $global:Button_ADMenu.Location = New-Object System.Drawing.Point(10,20)
@@ -20,17 +22,6 @@ function main_menu {
     $global:Button_Info.Location = New-Object System.Drawing.Point(10,80)
     $global:Button_Info.Add_click({InfoMenu})
     $global:Button_Info.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $main_form = New-Object System.Windows.Forms.Form

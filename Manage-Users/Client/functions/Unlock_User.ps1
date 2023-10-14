@@ -2,6 +2,8 @@
 <#Функция меню для выбора пользователя для разблокировки#>
 function Unlock_user {
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $Text_Unlock_user = New-Object System.Windows.Forms.Label
     $Text_Unlock_user.Text = "Select user"
@@ -44,17 +46,6 @@ function Unlock_user {
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$AD = ActiveDirectoryMenu $Form_Unlock_user.Dispose(),$AD})
     $Button_Back.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Form_Unlock_user = New-Object System.Windows.Forms.Form

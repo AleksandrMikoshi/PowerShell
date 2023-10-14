@@ -2,6 +2,8 @@
 <#Функция меню для указания данных для дальнейшего предоставления прав#>
 function Sendas{
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $ComboBox_Send_as = New-Object System.Windows.Forms.CheckedListBox
     $ComboBox_Send_as.Width = 250
@@ -58,17 +60,6 @@ function Sendas{
     $Button_Main_Menu.Location = New-Object System.Drawing.Point(10,400)
     $Button_Main_Menu.Add_click({$EM = ExchangeMenu $Menu_Send_as.Dispose(),$EM})
     $Button_Main_Menu.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Menu_Send_as = New-Object System.Windows.Forms.Form

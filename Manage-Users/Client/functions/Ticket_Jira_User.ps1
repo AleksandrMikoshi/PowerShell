@@ -2,6 +2,8 @@
 <#Функция меню для указания заявки в Jira на выход сотрудника#>
 function Ticket_Jira_User {
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $Button_Ticket_Jira = New-Object System.Windows.Forms.Button
     $Button_Ticket_Jira.Location = New-Object System.Drawing.Size(393,50)
@@ -28,17 +30,6 @@ function Ticket_Jira_User {
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$AD = ActiveDirectoryMenu $Form_Ticket_Jira.Dispose(),$AD})
     $Button_Back.AutoSize = $true
-
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Form_Ticket_Jira = New-Object System.Windows.Forms.Form

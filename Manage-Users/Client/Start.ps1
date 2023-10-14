@@ -5,6 +5,8 @@ Connecting to the server where the JEA service is deployed and importing functio
 Add-Type -assembly System.Windows.Forms
  
 [string]$DC = (Get-ADDomainController -Writable -Service GlobalCatalog -Discover).HostName
+$JEA_Serv = 'JeaServer'
+$JEA_Conf = 'NameJeaConfig'
 $Mail_serv = 'MAIL_SERVER'
 $Path_log = 'C:\JEA\Logs\Error.txt' #example
 $Path_OU = 'OU=Users,DC=Company,DC=Com' #example
@@ -23,7 +25,7 @@ foreach ($file in $FunctionFiles) {
     . $file.FullName
 }
  
-$Session_JEA = New-PSSession -ConfigurationName HelpDesk -ComputerName pwsh-01-inf
-Import-PSSession $Session_JEA -AllowClobber -Module ManageUser
+$Session_JEA = New-PSSession -ConfigurationName $JEA_Conf -ComputerName $JEA_Serv
+ Import-PSSession $Session_JEA -AllowClobber -Module ManageUser
 
 main_menu 

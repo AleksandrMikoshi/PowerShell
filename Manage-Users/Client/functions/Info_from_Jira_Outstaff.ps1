@@ -6,6 +6,8 @@ function Info_from_Jira_Outstaff {
         $Data
     )   
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     $Text_Outstaff_Info_User = New-Object System.Windows.Forms.Label
     $Text_Outstaff_Info_User.Text = "Check the data"
@@ -144,17 +146,6 @@ function Info_from_Jira_Outstaff {
     $Button_Back.Location = New-Object System.Drawing.Point(10,400)
     $Button_Back.Add_click({$Back = Form_Ticket_Jira_Outstaff $Form_Outstaff_Info_User.Dispose(),$Back})
     $Button_Back.AutoSize = $true
-                
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     $Background = [system.drawing.image]::FromFile($Background_Image)
     $Form_Outstaff_Info_User = New-Object System.Windows.Forms.Form

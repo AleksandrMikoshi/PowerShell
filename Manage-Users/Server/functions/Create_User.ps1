@@ -1,5 +1,3 @@
-<#User and mailbox creation function#>
-<#Функция создания пользователи и почтового ящика#>
 function Create_User {
     param (
         [Parameter(Mandatory)]
@@ -9,17 +7,9 @@ function Create_User {
         [Parameter(Mandatory)]
         [string]$Path_OU,
         [Parameter(Mandatory)]
-        $Mail_serv,
-        [Parameter(Mandatory)]
-        $Path_log,
-        [Parameter(Mandatory)]
-        $DB_Mail,
-        [Parameter(Mandatory)]
-        $ArchiveDatabase
+        $Path_log
     )
     Set-JiraConfigServer -Server "$Jira"
-    $Session = New-PSSession -ConfigurationName Microsoft.Exchange -ConnectionUri http://$Mail_serv/PowerShell/ -Authentication Kerberos -Credential $Cred_Exch
-    Import-PSSession $Session -AllowClobber -CommandName Enable-Mailbox,Get-GlobalAddressList,Update-GlobalAddressList,Get-OfflineAddressBook,Update-OfflineAddressBook,Get-AddressList,Update-AddressList -DisableNameChecking
 
     $LastName        = $UserAttr.LastName
     $FirstName       = $UserAttr.FirstName
@@ -30,7 +20,7 @@ function Create_User {
         $length = Get-Random -Minimum 9 -Maximum 12
         $password = [System.Web.Security.Membership]::GeneratePassword($length, 2)
         $pass = ConvertTo-SecureString $password -AsPlainText -force
-        $UserPrincipalName = $UserAttr.SamAccountName + "@" + $Domain
+        $UserPrincipalName = $UserAttr.SamAccountName + $Domain
         $DisplayName = $UserAttr.LastName + " " + $UserAttr.FirstName
         $FullName = $UserAttr.LastName + " " + $UserAttr.FirstName + " " + $UserAttr.Initials
 
@@ -39,6 +29,8 @@ function Create_User {
         'extensionAttribute2' = $UserAttr.Initials
         'extensionAttribute5' = $UserAttr.Birth
         }
+        if ($UserAttr.Division -ne '') { $extension += @{extensionAttribute3 = "$UserAttr.Division" } }
+        if ($UserAttr.Management -ne '') { $extension += @{extensionAttribute4 = "$UserAttr.Management" } }
         $ADParameters = @{
         'Server'                = $DC
         'DisplayName'           = $DisplayName
@@ -60,9 +52,6 @@ function Create_User {
 
         New-ADUser $FullName @ADParameters
 
-        if ($UserAttr.Division -ne '') { Set-ADUser -Server $DC $SamAccountName -add @{extensionAttribute3 = "$UserAttr.Division" } }
-        if ($UserAttr.Management -ne '') { Set-ADUser -Server $DC $SamAccountName -Replace @{extensionAttribute4 = "UserAttr.$Management" } }
-    
         $user_creds = "Login: $SamAccountName`nPassword: $password"
         $parameters = @{
             Fields = @{
@@ -71,16 +60,8 @@ function Create_User {
         }
         Set-JiraIssue @parameters -Issue "$PipeLine" -Credential $Cred_Jira
     
-        Enable-Mailbox -identity $UserAttr.SamAccountName -Alias $UserAttr.SamAccountName -Database $DB_Mail -DomainController $DC
-        Enable-Mailbox -identity $UserAttr.SamAccountName -archive -ArchiveDatabase $ArchiveDatabase -DomainController $DC
-        Get-GlobalAddressList | Update-GlobalAddressList
-        Get-OfflineAddressBook | Update-OfflineAddressBook
-        Get-AddressList | Update-AddressList
-        Remove-PSSession $Session
         $Color = "green"
-        $Outcome="
-            User $LastName $FirstName created
-            Mailbox '$SamAccountName@$Domain' has been created"
+        $Outcome = "✓ Create an account"
         $Total = @{
             Color = $Color
             Outcome = $Outcome
@@ -96,11 +77,11 @@ function Create_User {
         Add-Content -Path $Path_log -Value $Value
         Remove-PSSession $Session
         $Color = "red"
-        $Outcome = 'Execution failed. Contact your system administrator'
+        $Outcome = '× Create an account. Contact your system administrator'
         $Total = @{
             Color = $Color
             Outcome = $Outcome
         }
         $Total
     }
-}
+} 

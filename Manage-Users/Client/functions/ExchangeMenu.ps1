@@ -2,6 +2,8 @@
 <#Функция вызова меню для управления учетными записями в Exchange#>
 function ExchangeMenu {
     Add-Type -assembly System.Windows.Forms
+    Label
+    Button_Exit 
 
     <#Button to create a mailbox#>
     <#Кнопка для создания почтового ящика#>
@@ -57,21 +59,6 @@ function ExchangeMenu {
     $Button_Main_Menu.Location = New-Object System.Drawing.Point(10,400)
     $Button_Main_Menu.Add_click({$Main_menu = main_menu $ExchangeMenu.Dispose(),$Main_menu})
     $Button_Main_Menu.AutoSize = $true
-
-    <#Signature at the bottom of the form#>
-    <#Подпись снизу формы#>
-    $Label = New-Object System.Windows.Forms.Label
-    $Label.Text = $Label_Text
-    $Label.Location  = New-Object System.Drawing.Point(110,450)
-    $Label.AutoSize = $true
-
-    <#Form close button#>
-    <#Кнопка закрытия формы#>
-    $Button_Exit = New-Object System.Windows.Forms.Button
-    $Button_Exit.Text = 'Exit'
-    $Button_Exit.Location = New-Object System.Drawing.Point(400,400)
-    $Button_Exit.DialogResult = [System.Windows.Forms.DialogResult]::Cancel
-    $Button_Exit.AutoSize = $true
 
     <#Adding a background#>
     <#Добавление фона#>
