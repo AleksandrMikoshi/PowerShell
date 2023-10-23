@@ -6,3 +6,9 @@
 
 Для запуска приложения лучше использовать ключ тихого запуска:
 ```powershell.exe -windowstyle Hidden -file C:/Client/Start.ps1```
+
+
+
+![](./project/Interface.png)
+
+![](./project/Interface_2.png)

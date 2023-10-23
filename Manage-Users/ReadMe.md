@@ -8,3 +8,8 @@ The [Server folder](https://github.com/AleksandrMikoshi/PowerShell/tree/main/Man
 
 To start the application, it is better to use the silent start key:
 ```powershell.exe -windowstyle Hidden -file C:/Client/Start.ps1```
+
+
+![](./project/Interface.png)
+
+![](./project/Interface_2.png)
